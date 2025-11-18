@@ -22,9 +22,10 @@ export class ScraperManager {
     this.scrapers.set('espn', new ESPNScraper());
     this.scrapers.set('bbcsport', new BBCSportScraper());
 
-    // By default, use mock and TheSportsDB (most reliable)
-    this.activeSources.add('mock');
+    // Use only real data sources (no mock data)
     this.activeSources.add('thesportsdb');
+    this.activeSources.add('espn');
+    this.activeSources.add('bbcsport');
   }
 
   public setActiveSources(sources: string[]) {

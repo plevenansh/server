@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import MatchCard from '@/components/MatchCard';
 import ServiceControls from '@/components/ServiceControls';
 import StatsPanel from '@/components/StatsPanel';
@@ -28,7 +28,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [autoRefresh, setAutoRefresh] = useState(true);
 
-  const fetchScores = async () => {
+  const fetchScores = useCallback(async () => {
     try {
       const endpoint = filter === 'all' ? '/api/scores' : `/api/scores?status=${filter}`;
       const response = await fetch(endpoint);
@@ -46,9 +46,9 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
 
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     try {
       const response = await fetch('/api/scores/stats');
       const data = await response.json();
@@ -59,16 +59,16 @@ export default function Home() {
     } catch (error) {
       console.error('Error fetching stats:', error);
     }
-  };
+  }, []);
 
-  const refreshData = () => {
+  const refreshData = useCallback(() => {
     fetchScores();
     fetchStats();
-  };
+  }, [fetchScores, fetchStats]);
 
   useEffect(() => {
     refreshData();
-  }, [filter]);
+  }, [refreshData]);
 
   useEffect(() => {
     if (!autoRefresh) return;
@@ -78,7 +78,7 @@ export default function Home() {
     }, 30000); // Refresh UI every 30 seconds
 
     return () => clearInterval(interval);
-  }, [autoRefresh, filter]);
+  }, [autoRefresh, refreshData]);
 
   const filteredMatches = scoresData?.matches || [];
 
@@ -159,7 +159,7 @@ export default function Home() {
               No matches found
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
-              Click "Fetch Live Scores Now" to load the latest matches
+              Click &quot;Fetch Live Scores Now&quot; to load the latest matches
             </p>
           </div>
         ) : (

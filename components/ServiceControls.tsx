@@ -139,7 +139,7 @@ export default function ServiceControls({ onUpdate }: ServiceControlsProps) {
         </div>
 
         <div className="text-xs text-gray-500 dark:text-gray-400 mt-4">
-          <p>💡 Use "Fetch Live Scores Now" for on-demand updates</p>
+          <p>💡 Use &quot;Fetch Live Scores Now&quot; for on-demand updates</p>
           <p>💡 Auto-update runs every minute when enabled</p>
         </div>
       </div>

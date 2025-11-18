@@ -3,7 +3,7 @@ import { Match, ScrapingResult } from '@/types';
 
 export class ESPNScraper extends BaseScraper {
   constructor() {
-    super('ESPN', 'https://www.espn.com/soccer/scoreboard');
+    super('ESPN', 'https://www.espn.com/cricket/scoreboard');
   }
 
   async scrape(): Promise<ScrapingResult> {
@@ -42,7 +42,7 @@ export class ESPNScraper extends BaseScraper {
               status = 'scheduled';
             }
 
-            const league = $match.closest('.Scoreboard').find('.ScoreboardScoreCell__League').text().trim() || 'Soccer';
+            const league = $match.closest('.Scoreboard').find('.ScoreboardScoreCell__League').text().trim() || 'Cricket';
 
             matches.push({
               id: this.generateMatchId(homeTeam, awayTeam, new Date().toISOString()),

@@ -13,7 +13,7 @@ export default function MatchCard({ match }: MatchCardProps) {
       case 'live':
         return (
           <span className="px-2 py-1 text-xs font-semibold rounded-full bg-red-500 text-white animate-pulse">
-            LIVE {match.minute ? `${match.minute}'` : ''}
+            LIVE {match.minute ? `${match.minute} Ov` : ''}
           </span>
         );
       case 'finished':

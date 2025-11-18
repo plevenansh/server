@@ -3,7 +3,7 @@ import { Match, ScrapingResult } from '@/types';
 
 export class BBCSportScraper extends BaseScraper {
   constructor() {
-    super('BBC Sport', 'https://www.bbc.com/sport/football/scores-fixtures');
+    super('BBC Sport', 'https://www.bbc.com/sport/cricket/scores-fixtures');
   }
 
   async scrape(): Promise<ScrapingResult> {
@@ -44,7 +44,7 @@ export class BBCSportScraper extends BaseScraper {
               awayTeam: { name: awayTeam, score: awayScore },
               status,
               startTime: new Date().toISOString(),
-              league: 'Football',
+              league: 'Cricket',
               minute,
               lastUpdated: new Date().toISOString(),
             });

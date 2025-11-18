@@ -18,13 +18,13 @@ export class TheSportsDBScraper extends BaseScraper {
     try {
       const matches: Match[] = [];
 
-      // Get live scores for major soccer leagues
+      // Get live scores for major cricket leagues
       const leagueIds = [
-        '4328', // English Premier League
-        '4335', // Spanish La Liga
-        '4331', // German Bundesliga
-        '4332', // Italian Serie A
-        '4334', // French Ligue 1
+        '4413', // Indian Premier League (IPL)
+        '4420', // Big Bash League (BBL)
+        '4462', // ICC Cricket World Cup
+        '4512', // T20 World Cup
+        '4421', // Pakistan Super League (PSL)
       ];
 
       for (const leagueId of leagueIds) {
@@ -78,7 +78,7 @@ export class TheSportsDBScraper extends BaseScraper {
           awayTeam: { name: awayTeam, score: awayScore },
           status,
           startTime: `${event.dateEvent}T${event.strTime || '00:00:00'}`,
-          league: event.strLeague || 'Soccer',
+          league: event.strLeague || 'Cricket',
           venue: event.strVenue,
           lastUpdated: new Date().toISOString(),
         });

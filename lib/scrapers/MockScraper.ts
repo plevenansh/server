@@ -3,7 +3,7 @@ import { Match, ScrapingResult } from '@/types';
 
 /**
  * Mock scraper for testing and demonstration
- * Generates realistic-looking live match data
+ * Generates realistic-looking live cricket match data
  */
 export class MockScraper extends BaseScraper {
   private matchCounter = 0;
@@ -23,13 +23,13 @@ export class MockScraper extends BaseScraper {
 
   private generateMockMatches(): Match[] {
     const teams = [
-      'Manchester United', 'Liverpool', 'Chelsea', 'Arsenal', 'Manchester City',
-      'Tottenham', 'Real Madrid', 'Barcelona', 'Bayern Munich', 'Juventus',
-      'PSG', 'AC Milan', 'Inter Milan', 'Borussia Dortmund', 'Atletico Madrid',
+      'India', 'Australia', 'England', 'Pakistan', 'South Africa',
+      'New Zealand', 'West Indies', 'Sri Lanka', 'Bangladesh', 'Afghanistan',
+      'Mumbai Indians', 'Chennai Super Kings', 'Royal Challengers Bangalore', 'Kolkata Knight Riders', 'Delhi Capitals',
     ];
 
     const leagues = [
-      'Premier League', 'La Liga', 'Bundesliga', 'Serie A', 'Ligue 1', 'Champions League'
+      'ICC World Cup', 'T20 World Cup', 'IPL', 'The Ashes', 'Test Series', 'ODI Series', 'T20I Series', 'Big Bash League'
     ];
 
     const statuses: Match['status'][] = ['live', 'live', 'live', 'finished', 'scheduled'];
@@ -52,24 +52,26 @@ export class MockScraper extends BaseScraper {
 
       let homeScore = 0;
       let awayScore = 0;
-      let minute: number | undefined;
+      let minute: number | undefined; // Will represent overs for cricket
 
       if (status === 'live') {
-        minute = 15 + Math.floor(Math.random() * 75); // 15-90 minutes
-        homeScore = Math.floor(Math.random() * 4);
-        awayScore = Math.floor(Math.random() * 4);
+        minute = 5 + Math.floor(Math.random() * 45); // 5-50 overs
+        // Cricket scores: runs between 50-300 for realistic matches
+        homeScore = 50 + Math.floor(Math.random() * 250);
+        awayScore = 30 + Math.floor(Math.random() * 200);
       } else if (status === 'finished') {
-        homeScore = Math.floor(Math.random() * 5);
-        awayScore = Math.floor(Math.random() * 5);
+        homeScore = 100 + Math.floor(Math.random() * 300);
+        awayScore = 100 + Math.floor(Math.random() * 300);
       }
 
       const startTime = new Date();
       if (status === 'scheduled') {
         startTime.setHours(startTime.getHours() + 1 + Math.floor(Math.random() * 6));
       } else if (status === 'live') {
-        startTime.setMinutes(startTime.getMinutes() - (minute || 0));
+        // Cricket matches are longer, set appropriate time
+        startTime.setMinutes(startTime.getMinutes() - ((minute || 0) * 6));
       } else {
-        startTime.setHours(startTime.getHours() - 2);
+        startTime.setHours(startTime.getHours() - 4);
       }
 
       matches.push({
@@ -79,7 +81,7 @@ export class MockScraper extends BaseScraper {
         status,
         startTime: startTime.toISOString(),
         league: leagues[Math.floor(Math.random() * leagues.length)],
-        minute,
+        minute, // Represents overs for cricket
         lastUpdated: new Date().toISOString(),
       });
     }

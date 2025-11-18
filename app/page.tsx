@@ -88,10 +88,10 @@ export default function Home() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            ⚽ Live Score Scraper
+            🏏 Live Cricket Score Scraper
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            Real-time football scores from multiple sources
+            Real-time cricket scores from multiple sources
           </p>
         </div>
 
